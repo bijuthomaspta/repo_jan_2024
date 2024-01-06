@@ -9,7 +9,13 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
+jobs:
+  - job: job1
+    steps:
+      - script: echo Hello world
+        displayName: Running first job
+  - job: job2
+    dependsOn: job1
+    steps:
+      - bash: echo This is job2
+        displayName: Running job2
