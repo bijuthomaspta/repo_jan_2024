@@ -35,6 +35,7 @@ stages:
 
 
   - stage: QA
+    dependsOn: Dev
     jobs:
     - job: job5
       steps:
