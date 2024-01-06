@@ -8,14 +8,40 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
+stages:
+  - stage: Dev
+    jobs:
+    - job: job1
+      steps:
+        - script: echo Hello world
+          displayName: Running first job
+    - job: job2
+      dependsOn: job1
+      steps:
+        - bash: echo This is job2
+          displayName: Running job2
 
-jobs:
-  - job: job1
-    steps:
-      - script: echo Hello world
-        displayName: Running first job
-  - job: job2
-    dependsOn: job1
-    steps:
-      - bash: echo This is job2
-        displayName: Running job2
+  - stage: Prod
+    jobs:
+    - job: job3
+      steps:
+        - script: echo Hello world
+          displayName: Running first job
+    - job: job2
+      dependsOn: job1
+      steps:
+        - bash: echo This is job2
+          displayName: Running job2
+
+
+  - stage: QA
+    jobs:
+    - job: job4
+      steps:
+        - script: echo Hello world
+          displayName: Running first job
+    - job: job2
+      dependsOn: job1
+      steps:
+        - bash: echo This is job2
+          displayName: Running job2
