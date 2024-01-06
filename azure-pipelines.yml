@@ -27,8 +27,8 @@ stages:
       steps:
         - script: echo Hello world
           displayName: Running first job
-    - job: job2
-      dependsOn: job1
+    - job: job4
+      dependsOn: job3
       steps:
         - bash: echo This is job2
           displayName: Running job2
@@ -36,12 +36,12 @@ stages:
 
   - stage: QA
     jobs:
-    - job: job4
+    - job: job5
       steps:
         - script: echo Hello world
           displayName: Running first job
     - job: job2
-      dependsOn: job1
+      dependsOn: Prod
       steps:
         - bash: echo This is job2
           displayName: Running job2
