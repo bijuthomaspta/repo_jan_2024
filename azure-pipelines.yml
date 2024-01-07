@@ -6,8 +6,8 @@ strategy:
   matrix:
     linux:
       os: 'ubuntu-latest'
-     mac:
-     os: 'macos-latest'
+    mac:
+      os: 'macos-latest'
 
      
 pool:
