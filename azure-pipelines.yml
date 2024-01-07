@@ -9,15 +9,9 @@ stages:
     jobs:
       - job: copying_artifacts_files
         steps:
-          - task: CopyFiles@2
-            inputs:
-              SourceFolder: '$(System.DefaultWorkingDirectory)'
-              Contents: '**'
-              TargetFolder: '$(Build.ArtifactStagingDirectory)'
-          - bash: ls -R '$(Build.ArtifactStagingDirectory)'
           
           - task: PublishBuildArtifacts@1
             inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              PathtoPublish: '$(System.DefaultWorkingDirectory)'
               ArtifactName: 'Master_Branch_files'
               publishLocation: 'Container'
