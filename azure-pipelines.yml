@@ -12,13 +12,13 @@ stages:
           - task: Docker@2
             inputs:
               containerRegistry: 'Docker_Registry'
-              repository: 'bijuthomaspta'
+              repository: 'bijuthomaspta/currency-exchange-microservice-basic-2024'
               command: 'build'
-              Dockerfile: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic'
+              Dockerfile: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/Dockerfile'
 
           - task: Docker@2
             inputs:
               containerRegistry: 'Docker_Registry'
-              repository: 'bijuthomaspta'
+              repository: 'bijuthomaspta/currency-exchange-microservice-basic-2024'
               command: 'push'
               tags: '07.01.2024'
