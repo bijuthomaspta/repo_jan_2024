@@ -1,8 +1,16 @@
 
 trigger:
 - master
+
+Strategy:
+  matrix:
+    linux:
+      os: 'ubuntu-latest'
+    Mac:
+      os: 'macos-latest'
+     
 pool:
-  VmImage: 'Ubuntu-latest'
+  VmImage: $(os)
 
 stages:
   - stage: Publishing_Artifacts_files
