@@ -13,14 +13,15 @@ strategy:
 pool:
   VmImage: $(os)
 
-stages:
-  - stage: Publishing_Artifacts_files
-    jobs:
-      - job: copying_artifacts_files
-        steps:
+# stages:
+#   - stage: Publishing_Artifacts_files
+jobs:
+  - job: copying_artifacts_files
+    steps:
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(System.DefaultWorkingDirectory)'
+          ArtifactName: 'Master_Branch_files_for_$(os)'
+          publishLocation: 'Container'
           
-          - task: PublishBuildArtifacts@1
-            inputs:
-              PathtoPublish: '$(System.DefaultWorkingDirectory)'
-              ArtifactName: 'Master_Branch_files'
-              publishLocation: 'Container'
+          
