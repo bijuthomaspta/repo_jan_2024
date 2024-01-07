@@ -15,6 +15,7 @@ stages:
               repository: 'bijuthomaspta/currency-exchange-microservice-basic-2024'
               command: 'build'
               Dockerfile: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/Dockerfile'
+              tags: '07.01.2024'
 
           - task: Docker@2
             inputs:
