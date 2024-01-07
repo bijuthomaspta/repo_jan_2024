@@ -7,11 +7,18 @@ pool:
 stages:
   - stage: Dev
     jobs:
-      - deployment: DEV_deploy_joob
-        environment: dev
-        strategy: 
-         runOnce:
-           deploy:
-             steps:
-               - script: eccho deploy to dev
-         
+      - job: Build_and_push_docker_images
+        steps:
+          - task: Docker@2
+            inputs:
+              containerRegistry: 'Docker_Registry'
+              repository: 'bijuthomaspta'
+              command: 'build'
+              Dockerfile: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic'
+
+          - task: Docker@2
+            inputs:
+              containerRegistry: 'Docker_Registry'
+              repository: 'bijuthomaspta'
+              command: 'push'
+              tags: '07.01.2024'
