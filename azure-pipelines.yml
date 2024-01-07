@@ -2,12 +2,13 @@
 trigger:
 - master
 
-Strategy:
+strategy: 
   matrix:
     linux:
       os: 'ubuntu-latest'
-    Mac:
-      os: 'macos-latest'
+     mac:
+     os: 'macos-latest'
+
      
 pool:
   VmImage: $(os)
