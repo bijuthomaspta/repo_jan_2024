@@ -1,23 +1,26 @@
 
 trigger:
 - master
-
 pool:
-  vmImage: ubuntu-latest
+  VmImage: 'Ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: '**/*.yaml'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-- bash: ls -R $(Build.ArtifactStagingDirectory)
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+stages:
+  - stage: Publishing_Artifacts files
+    jobs:
+      - job: copying_artifacts_files
+        steps:
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: '$(System.DefaultWorkingDirectory)'
+              Contents: '**'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
+          - bash: ls -R '$(Build.ArtifactStagingDirectory)'
+      - job: publishing_artifacts_files
+        dependsOn: copying_artifacts_files
+        condition: succeed
+        steps:
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'Master_Branch_files'
+              publishLocation: 'Container'
