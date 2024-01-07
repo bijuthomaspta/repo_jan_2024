@@ -7,7 +7,7 @@ pool:
 stages:
   - stage: Dev
     jobs:
-      - deployment: DEV-deploy_joob
+      - deployment: DEV_deploy_joob
         environment: dev
         strategy: 
          runOnce:
