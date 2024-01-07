@@ -5,7 +5,7 @@ pool:
   VmImage: 'Ubuntu-latest'
 
 stages:
-  - stage: Publishing_Artifacts files
+  - stage: Publishing_Artifacts_files
     jobs:
       - job: copying_artifacts_files
         steps:
