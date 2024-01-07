@@ -2,25 +2,16 @@
 trigger:
 - master
 
-strategy: 
-  matrix:
-    linux:
-      os: 'ubuntu-latest'
-    mac:
-      os: 'macos-latest'
-
-     
 pool:
-  VmImage: $(os)
-
-# stages:
-#   - stage: Publishing_Artifacts_files
-steps:
-      - task: PublishBuildArtifacts@1
-        inputs:
-          PathtoPublish: '$(System.DefaultWorkingDirectory)'
-          ArtifactName: 'Master_Branch_files_for_$(os)'
-          publishLocation: 'Container'   
-          
-
-          
+  VmImage: 'ubuntu-latest'
+stages:
+  - stage: Dev
+    jobs:
+      - deployment: DEV-deploy_joob
+        environment: dev
+        strategy: 
+         runOnce:
+           deploy:
+             steps:
+               - script: eccho deploy to dev
+         
