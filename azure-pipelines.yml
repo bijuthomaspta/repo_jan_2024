@@ -17,7 +17,7 @@ stages:
           - bash: ls -R '$(Build.ArtifactStagingDirectory)'
       - job: publishing_artifacts_files
         dependsOn: copying_artifacts_files
-        condition: always
+        condition: always()
         steps:
           - task: PublishBuildArtifacts@1
             inputs:
