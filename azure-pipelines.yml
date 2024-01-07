@@ -9,33 +9,27 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 stages:
-  - stage: Dev
-    variables:
-      environment: Deeeev
+  - stage: Copying_Arifacts_File
     jobs:
     - job: job1
       steps:
-        - script: echo Hello world is ran on $(environment)
-          displayName: Running first job
-    - job: job2
-      dependsOn: job1
-      steps:
-        - bash: echo This is job2
-          displayName: Running job2
+        - task: CopyFiles@2
+          inputs:
+            SourceFolder: '$(System.DefaultWorkingDirectory)'
+            Contents: '**'
+            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        - bash: ls -R '$(Build.ArtifactStagingDirectory)'
 
-  - stage: Prod
-    variables:
-      environment: prod
+  - stage: Publishing_Artiacts_Files
+    dependsOn: Copying_Arifacts_File
     jobs:
-    - job: job3
+    - job: job1
       steps:
-        - script: echo Hello world run on $(environment)
-          displayName: Running first job
-    - job: job4
-      dependsOn: job3
-      steps:
-        - bash: echo $(Build.BuildNumber)
-        - bash: echo $(Build.BuildId)
-        - bash: echo $(System.SourcesDirectory)
-        - bash: echo $(System.DefaultworkingDirecory)
-          displayName: Running job2
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'
+            publishLocation: 'Container'
+            
+      
+
