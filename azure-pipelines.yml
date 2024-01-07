@@ -15,13 +15,12 @@ pool:
 
 # stages:
 #   - stage: Publishing_Artifacts_files
-jobs:
-  - job: copying_artifacts_files
-    steps:
+steps:
       - task: PublishBuildArtifacts@1
         inputs:
           PathtoPublish: '$(System.DefaultWorkingDirectory)'
           ArtifactName: 'Master_Branch_files_for_$(os)'
-          publishLocation: 'Container'
+          publishLocation: 'Container'   
           
+
           
