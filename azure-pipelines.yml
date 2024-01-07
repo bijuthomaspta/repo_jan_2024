@@ -1,34 +1,23 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 trigger:
 - master
 
 pool:
   vmImage: ubuntu-latest
-stages:
-  - stage: Copying_Arifacts_File
-    jobs:
-    - job: job1
-      steps:
-        - task: CopyFiles@2
-          inputs:
-            SourceFolder: '$(System.DefaultWorkingDirectory)'
-            Contents: '**/*.yaml'
-            TargetFolder: '$(Build.ArtifactStagingDirectory)'
-        - bash: ls -R '$(Build.ArtifactStagingDirectory)'
 
-  - stage: Publishing_Artiacts_Files
-    dependsOn: Copying_Arifacts_File
-    jobs:
-    - job: job1
-      steps:
-        - task: PublishBuildArtifacts@1
-          inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-            ArtifactName: 'drop'
-            publishLocation: 'Container'
-            
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**/*.yaml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- bash: ls -R $(Build.ArtifactStagingDirectory)
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
