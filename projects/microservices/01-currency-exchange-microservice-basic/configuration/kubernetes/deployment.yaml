@@ -23,11 +23,11 @@ spec:
     spec:
       containers:
       - name: currency-exchange
-        image: in28min/currency-exchange-devops
+        image: bijuthomaspta/hello-world-pythonjan2024.01:latest
         imagePullPolicy: IfNotPresent
         ports:
         - name: liveness-port
-          containerPort: 8000
+          containerPort: 5000
         resources: #CHANGE
           requests:
             cpu: 100m
@@ -62,9 +62,9 @@ metadata:
 spec:
   ports:
   - # nodePort: 30702 #CHANGE
-    port: 8000 #CHANGE
+    port: 5000 #CHANGE
     protocol: TCP
-    targetPort: 8000 #CHANGE
+    targetPort: 5000 #CHANGE
   selector:
     app: currency-exchange
   sessionAffinity: None #CHANGE
