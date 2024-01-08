@@ -49,3 +49,14 @@ stages:
               namespace: 'default'
               manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
               containers: 'Biju'
+          
+  - stage: Destroying_kubernetes_cluster
+    jobs:
+      - job: Terraform_destroy
+        steps:          
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'aws'
+              command: 'destroy'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
+              environmentServiceNameAWS: 'AWS'
