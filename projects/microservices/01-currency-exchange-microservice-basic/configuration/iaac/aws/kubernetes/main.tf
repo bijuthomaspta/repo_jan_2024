@@ -62,16 +62,28 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
   token = data.aws_eks_cluster_auth.cluster1.token
 }
-
-
-resource "kubernetes_secret" "example" {
+resource "kubernetes_service_account" "example_service_account" {
   metadata {
-    annotations = {
-      "kubernetes.io/service-account.name" = "biju"
-    }
+    name = "biju"
+  }
+}
+
+resource "kubernetes_secret" "example_secret" {
+  metadata {
+    name = "biju-secret-name"
   }
 
-  type = "kubernetes.io/service-account-token"
+  data = {
+    username = base64encode("biju")
+    password = base64encode("biju123")
+  }
+
+  type = "Opaque"
+}
+
+resource "kubernetes_service_account_secret" "example_sa_secret" {
+  service_account_name = kubernetes_service_account.example_service_account.metadata[0].name
+  secret_name          = kubernetes_secret.example_secret.metadata[0].name
 }
 
 
