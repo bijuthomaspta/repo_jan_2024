@@ -46,6 +46,6 @@ stages:
               action: 'deploy'
               connectionType: 'kubernetesServiceConnection'
               kubernetesServiceConnection: 'AWS_kubernetes_connection'
-              namespace: 'defult'
+              namespace: 'default'
               manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
               containers: 'Biju'
