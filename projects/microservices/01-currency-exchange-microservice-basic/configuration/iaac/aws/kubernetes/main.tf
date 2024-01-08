@@ -66,34 +66,18 @@ provider "kubernetes" {
 
 resource "kubernetes_service_account" "example" {
   metadata {
-    name      = "biju"
-    namespace = "default"
+    name = "default"
   }
-  
-  automount_service_account_token = true
+  secret {
+    name = "${kubernetes_secret.example.metadata.0.name}"
+  }
 }
 
-resource "kubernetes_cluster_role_binding" "example" {
+resource "kubernetes_secret" "example" {
   metadata {
     name = "terraform-example"
   }
-  role_ref {
-    api_group = "rbac.authorization.k8s.io"
-    kind      = "ClusterRole"
-    name      = "cluster-admin"
-  }
-  subject {
-    kind      = "ServiceAccount"
-    name      = "default"
-    namespace = "default"
-  }
-  subject {
-    kind      = "ServiceAccount"
-    name      = "biju"
-    namespace = "default"
-  }
 }
-
 
 
 # We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
