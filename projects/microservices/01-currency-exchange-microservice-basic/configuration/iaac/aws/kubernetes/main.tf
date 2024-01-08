@@ -65,7 +65,7 @@ provider "kubernetes" {
 
 resource "kubernetes_service_account" "example" {
   metadata {
-    name      = "default"
+    #name      = "default"
     namespace = "default"
   }
   
