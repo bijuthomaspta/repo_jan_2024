@@ -17,4 +17,10 @@ stages:
               backendServiceAWS: 'AWS'
               backendAWSBucketName: 'terraform-backend-state-on-08-01-2023'
               backendAWSKey: 'eks-backend-state.tfstate'
-           
+          
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'aws'
+              command: 'apply'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
+              environmentServiceNameAWS: 'AWS'
