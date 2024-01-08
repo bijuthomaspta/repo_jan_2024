@@ -67,6 +67,13 @@ resource "kubernetes_service_account" "example_service_account" {
     name = "biju"
   }
 }
+resource "kubernetes_service_account" "example" {
+  metadata {
+    name = "biju"
+  }
+  secret {
+    name = "${kubernetes_secret.example_secret.metadata[0].name}"
+  }
 
 resource "kubernetes_secret" "example_secret" {
   metadata {
@@ -81,10 +88,6 @@ resource "kubernetes_secret" "example_secret" {
   type = "Opaque"
 }
 
-resource "kubernetes_service_account_secret" "example_sa_secret" {
-  service_account_name = kubernetes_service_account.example_service_account.metadata[0].name
-  secret_name          = kubernetes_secret.example_secret.metadata[0].name
-}
 
 
 # We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
