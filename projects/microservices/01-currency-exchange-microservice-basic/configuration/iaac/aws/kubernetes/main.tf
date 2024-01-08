@@ -66,7 +66,7 @@ provider "kubernetes" {
 resource "kubernetes_service_account" "example" {
   metadata {
     name      = "default"
-    namespace = "dfault"
+    namespace = "default"
   }
   
   automount_service_account_token = true
