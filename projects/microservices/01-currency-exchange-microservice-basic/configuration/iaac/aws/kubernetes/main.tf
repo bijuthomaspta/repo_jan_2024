@@ -62,31 +62,24 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
   token = data.aws_eks_cluster_auth.cluster1.token
 }
-resource "kubernetes_service_account" "example_service_account" {
-  metadata {
-    name = "biju"
-  }
-}
-resource "kubernetes_service_account" "example" {
-  metadata {
-    name = "biju1111111"
+module "iam_eks_role" {
+  source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  role_name = "my-app"
+
+  role_policy_arns = {
+    policy = "arn:aws:iam::012345678901:policy/myapp"
   }
 
-  secret {
-    name = "${kubernetes_secret.example_secret.metadata[0].name}"
+  oidc_providers = {
+    one = {
+      provider_arn               = "arn:aws:iam::012345678901:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/5C54DDF35ER19312844C7333374CC09D"
+      namespace_service_accounts = ["default:my-app-staging"]
+    }
+    two = {
+      provider_arn               = "arn:aws:iam::012345678901:oidc-provider/oidc.eks.ap-southeast-1.amazonaws.com/id/5C54DDF35ER54476848E7333374FF09G"
+      namespace_service_accounts = ["default:my-app-staging"]
+    }
   }
-}
-resource "kubernetes_secret" "example_secret" {
-  metadata {
-    name = "biju-secret-name"
-  }
-
-  data = {
-    username = base64encode("biju")
-    password = base64encode("biju123")
-  }
-
-  type = "Opaque"
 }
 
 
