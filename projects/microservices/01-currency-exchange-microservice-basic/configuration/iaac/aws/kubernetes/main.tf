@@ -64,10 +64,10 @@ provider "kubernetes" {
 }
 module "iam_eks_role" {
   source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  role_name = "myaPP"
+  role_name = "my-app"
 
   role_policy_arns = {
-    policy = "arn:aws:iam::784395903625:role/myaPP"
+    policy = "arn:aws:iam::784395903625:role/myapp"
   }
 
   oidc_providers = {
