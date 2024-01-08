@@ -66,7 +66,7 @@ provider "kubernetes" {
 
 resource "kubernetes_service_account" "example" {
   metadata {
-    name = "default"
+    name = "biju"
   }
   secret {
     name = "${kubernetes_secret.example.metadata.0.name}"
