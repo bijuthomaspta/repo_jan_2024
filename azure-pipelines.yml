@@ -34,4 +34,11 @@ stages:
                 Contents: '**'
                 ArtifactName: 'Kubernetes_deployment_cofiguration_files'
                 ArtifactType: 'Container'
-          
+          - task: KubernetesManifest@1
+            inputs:
+              action: 'deploy'
+              connectionType: 'kubernetesServiceConnection'
+              kubernetesServiceConnection: 'AWS_kubernetes_connection'
+              namespace: 'defult'
+              manifests: 'Kubernetes_deployment_cofiguration_files'
+              containers: 'Biju'
