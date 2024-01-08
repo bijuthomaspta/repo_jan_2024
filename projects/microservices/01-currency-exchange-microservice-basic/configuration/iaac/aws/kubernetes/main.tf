@@ -63,13 +63,15 @@ provider "kubernetes" {
   token = data.aws_eks_cluster_auth.cluster1.token
 }
 
-resource "kubernetes_service_account" "example" {
+
+resource "kubernetes_secret_v1" "example" {
   metadata {
-    #name      = "default"
-    namespace = "default"
+    annotations = {
+      "kubernetes.io/service-account.name" = "default"
+    }
   }
-  
-  automount_service_account_token = true
+
+  type = "kubernetes.io/service-account-token"
 }
 
 # We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
