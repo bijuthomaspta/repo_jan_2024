@@ -67,7 +67,7 @@ module "iam_eks_role" {
   role_name = "my-app"
 
   role_policy_arns = {
-    policy = "arn:aws:iam::784395903625:role/myapp"
+    policy = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   }
 
   oidc_providers = {
