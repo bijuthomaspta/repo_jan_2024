@@ -9,4 +9,11 @@ stages:
     jobs:
       - job: Creating_AWS_EKS
         steps:
-          
+           - task: TerraformTaskV4@4
+             inputs:
+               provider: 'aws'
+               command: 'init'
+               workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/main.tf'
+               backendServiceAWS: 'AWS'
+               backendAWSBucketName: 'terraform-backend-state-on-08-01-2024'
+               backendAWSKey: 'eks-backend-state'
