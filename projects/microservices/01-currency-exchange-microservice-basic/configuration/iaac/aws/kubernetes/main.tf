@@ -64,18 +64,16 @@ provider "kubernetes" {
 }
 
 
-resource "kubernetes_secret_v1" "example" {
+resource "kubernetes_service_account" "example" {
   metadata {
-    name = "basic-auth"
+    name      = "biju"
+    namespace = "default"
   }
-
-  data = {
-    username = "default"
-    password = "P4ssw0rd"
-  }
-
-  type = "kubernetes.io/basic-auth"
+  
+  automount_service_account_token = true
 }
+
+
 
 # We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
 # ServiceAccount needs permissions to create deployments 
