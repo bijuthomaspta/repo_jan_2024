@@ -66,7 +66,6 @@ provider "kubernetes" {
 
 resource "kubernetes_secret" "example" {
   metadata {
-    name = "biju-secret"
     annotations = {
       "kubernetes.io/service-account.name" = "biju"
     }
