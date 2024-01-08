@@ -64,10 +64,10 @@ provider "kubernetes" {
 }
 module "iam_eks_role" {
   source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  role_name = "in28minutes-cluster5856666-cluster-20240108144616335400000001"
+  role_name = "AWSServiceRoleForTrustedAdvisor"
 
   role_policy_arns = {
-    policy = "arn:aws:iam::784395903625:role/in28minutes-cluster5856666-cluster-20240108144616335400000001"
+    policy = "arn:aws:iam::784395903625:role/aws-service-role/trustedadvisor.amazonaws.com/AWSServiceRoleForTrustedAdvisor"
   }
 
   oidc_providers = {
