@@ -73,7 +73,7 @@ module "iam_eks_role" {
   oidc_providers = {
     one = {
       provider_arn               = "arn:aws:iam::784395903625:oidc-provider/oidc.eks.ap-south-1.amazonaws.com/id/ED17138BD44C3751F3C24CF9C71DAB42"
-      namespace_service_accounts = ["default:my-app-staging"]
+      namespace_service_accounts = ["default:default"]
     }
   }
 }
