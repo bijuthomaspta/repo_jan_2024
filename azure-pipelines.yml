@@ -24,3 +24,14 @@ stages:
               command: 'apply'
               workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
               environmentServiceNameAWS: 'AWS'
+  - stage: Deploying_java_app_to_kubernetes
+    jobs:
+      - job: Publishing_Artifacts_files
+        steps:
+          - task: CopyPublishBuildArtifacts@1
+            inputs:
+                CopyRoot: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/kubernetes/'
+                Contents: '**'
+                ArtifactName: 'Kubernetes_deployment_cofiguration_files'
+                ArtifactType: 'Container'
+          
