@@ -69,7 +69,7 @@ resource "kubernetes_service_account" "example_service_account" {
 }
 resource "kubernetes_service_account" "example" {
   metadata {
-    name = "biju"
+    name = "biju1111111"
   }
 
   secret {
