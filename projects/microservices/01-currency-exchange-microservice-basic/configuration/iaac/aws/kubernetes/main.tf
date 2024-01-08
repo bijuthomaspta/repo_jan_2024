@@ -45,22 +45,24 @@ module "in28minutes-cluster" {
   }
 }
 
-data "aws_eks_cluster" "cluster" {
-  name = module.in28minutes-cluster.cluster_name
-  depends_on = [module.in28minutes-cluster.cluster_name]
-}
+
+# data "aws_eks_cluster" "cluster" {
+#   name = module.in28minutes-cluster.cluster_name
+#   depends_on = [module.in28minutes-cluster.cluster_name]
+# }
 
 
-data "aws_eks_cluster_auth" "cluster1" {
-  name = module.in28minutes-cluster.cluster_name
-  depends_on = [module.in28minutes-cluster.cluster_name]
-}
+# data "aws_eks_cluster_auth" "cluster1" {
+#   name = module.in28minutes-cluster.cluster_name
+#   depends_on = [module.in28minutes-cluster.cluster_name]
+# }
 
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-  token = data.aws_eks_cluster_auth.cluster1.token
-}
+# provider "kubernetes" {
+#   host                   = data.aws_eks_cluster.cluster.endpoint
+#   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
+#   token = data.aws_eks_cluster_auth.cluster1.token
+# }
+
 
 
 # We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
