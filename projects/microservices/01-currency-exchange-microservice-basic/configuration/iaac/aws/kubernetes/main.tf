@@ -72,11 +72,11 @@ module "iam_eks_role" {
 
   oidc_providers = {
     one = {
-      provider_arn               = "arn:aws:iam::012345678901:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/5C54DDF35ER19312844C7333374CC09D"
+      provider_arn               = "arn:aws:iam::012345678901:oidc-provider/oidc.eks.ap-south-1.amazonaws.com/id/5C54DDF35ER19312844C7333374CC09D"
       namespace_service_accounts = ["default:my-app-staging"]
     }
     two = {
-      provider_arn               = "arn:aws:iam::012345678901:oidc-provider/oidc.eks.ap-southeast-1.amazonaws.com/id/5C54DDF35ER54476848E7333374FF09G"
+      provider_arn               = "arn:aws:iam::012345678901:oidc-provider/oidc.eks.ap-south-1.amazonaws.com/id/5C54DDF35ER54476848E7333374FF09G"
       namespace_service_accounts = ["default:my-app-staging"]
     }
   }
