@@ -64,19 +64,15 @@ provider "kubernetes" {
 }
 
 
-resource "kubernetes_service_account" "example" {
-  metadata {
-    name = "biju"
-  }
-  secret {
-    name = "${kubernetes_secret.example.metadata.0.name}"
-  }
-}
-
 resource "kubernetes_secret" "example" {
   metadata {
-    name = "terraform-example"
+    name = "biju-secret"
+    annotations = {
+      "kubernetes.io/service-account.name" = "biju"
+    }
   }
+
+  type = "kubernetes.io/service-account-token"
 }
 
 
