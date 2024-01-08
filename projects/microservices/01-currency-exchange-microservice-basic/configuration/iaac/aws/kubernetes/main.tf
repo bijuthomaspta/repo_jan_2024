@@ -24,26 +24,19 @@ data "aws_subnets" "subnets" {
   }
 }
 
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  version                = "~> 2.12"
-}
-
 module "in28minutes-cluster" {
   source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = "in28minutes-cluster"
+  cluster_name    = "in28minutes-cluster5856666"
   cluster_version = "1.23"
   #subnets         = ["subnet-3f7b2563", "subnet-4a7d6a45"] #CHANGE
   subnet_ids = data.aws_subnets.subnets.ids
   vpc_id          = aws_default_vpc.default.id
 
-  #vpc_id         = "vpc-1234556abcdef"
 
+  #vpc_id         = "vpc-1234556abcdef"
+  cluster_endpoint_public_access = true
    eks_managed_node_groups = {
-   one = {
-      name = "node-group-1"
+    one = {
       instance_type = "t2.micro"
       max_capacity  = 5
       desired_capacity = 3
@@ -53,11 +46,20 @@ module "in28minutes-cluster" {
 }
 
 data "aws_eks_cluster" "cluster" {
-  name = module.in28minutes-cluster.cluster_id
+  name = module.in28minutes-cluster.cluster_name
+  depends_on = [module.in28minutes-cluster.cluster_name]
 }
 
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.in28minutes-cluster.cluster_id
+
+data "aws_eks_cluster_auth" "cluster1" {
+  name = module.in28minutes-cluster.cluster_name
+  depends_on = [module.in28minutes-cluster.cluster_name]
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
+  token = data.aws_eks_cluster_auth.cluster1.token
 }
 
 
