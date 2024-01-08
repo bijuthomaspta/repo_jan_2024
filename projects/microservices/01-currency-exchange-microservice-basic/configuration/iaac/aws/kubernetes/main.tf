@@ -71,11 +71,11 @@ resource "kubernetes_service_account" "example" {
   metadata {
     name = "biju"
   }
-}
+
   secret {
     name = "${kubernetes_secret.example_secret.metadata[0].name}"
   }
-
+}
 resource "kubernetes_secret" "example_secret" {
   metadata {
     name = "biju-secret-name"
