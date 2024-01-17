@@ -43,10 +43,8 @@ stages:
               downloadPath: '$(System.ArtifactsDirectory)'
           - task: KubernetesManifest@1
             inputs:
-              action: 'deploy'
+              action: 'delete'
               connectionType: 'kubernetesServiceConnection'
               kubernetesServiceConnection: 'AWS_kubernetes_connection'
               namespace: 'default'
-              manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
-              containers: 'Biju'
           
