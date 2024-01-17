@@ -5,10 +5,10 @@ trigger:
 pool:
   VmImage: 'ubuntu-latest'
 stages:
-  - stage: Dev
-    jobs:
-      - job: Creating_AWS_EKS
-        steps:
+  # - stage: Dev
+  #   jobs:
+  #     - job: Creating_AWS_EKS
+  #       steps:
           # - task: TerraformTaskV4@4
           #   inputs:
           #     provider: 'aws'
