@@ -47,6 +47,6 @@ stages:
               connectionType: 'kubernetesServiceConnection'
               kubernetesServiceConnection: 'AWS_kubernetes_connection'
               namespace: 'default'
-              manifests: '$(System.ArtifactsDirectory)/deployment.yml'
+              manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
               containers: 'in28min'
           
