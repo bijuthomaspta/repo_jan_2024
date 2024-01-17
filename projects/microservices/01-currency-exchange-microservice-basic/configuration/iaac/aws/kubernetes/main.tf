@@ -62,22 +62,43 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
   token = data.aws_eks_cluster_auth.cluster1.token
 }
-module "iam_eks_role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  role_name = "my-app"
 
-  role_policy_arns = {
-    policy = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  }
-
-  oidc_providers = {
-    one = {
-      provider_arn               = "arn:aws:iam::784395903625:oidc-provider/oidc.eks.ap-south-1.amazonaws.com/id/ED17138BD44C3751F3C24CF9C71DAB42"
-      namespace_service_accounts = ["default:default"]
+resource "kubernetes_secret" "example" {
+  metadata {
+    name = "sa-secret"
+    annotations = {
+      "kubernetes.io/service-account.name" = "default"
     }
   }
-}
 
+  type = "kubernetes.io/service-account-token"
+}
+resource "kubernetes_cluster_role" "example" {
+  metadata {
+    name = "cluster-role-for-default"
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["*"]
+    verbs      = ["get", "list", "watch", "create", "delete", "ptch", "update"]
+  }
+}
+resource "kubernetes_cluster_role_binding" "example" {
+  metadata {
+    name = "cluster-rolebinding-for-default"
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-role-for-default"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = "default"
+    namespace = "default"
+  }
+}
 
 
 # We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
