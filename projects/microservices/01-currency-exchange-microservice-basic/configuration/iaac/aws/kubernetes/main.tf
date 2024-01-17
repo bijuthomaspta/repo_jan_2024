@@ -73,32 +73,7 @@ resource "kubernetes_secret" "example" {
 
   type = "kubernetes.io/service-account-token"
 }
-resource "kubernetes_cluster_role" "example" {
-  metadata {
-    name = "cluster-role-for-default"
-  }
 
-  rule {
-    api_groups = [""]
-    resources  = ["*"]
-    verbs      = ["get", "list", "watch", "create", "delete", "ptch", "update"]
-  }
-}
-resource "kubernetes_cluster_role_binding" "example" {
-  metadata {
-    name = "cluster-rolebinding-for-default"
-  }
-  role_ref {
-    api_group = "rbac.authorization.k8s.io"
-    kind      = "ClusterRole"
-    name      = "cluster-role-for-default"
-  }
-  subject {
-    kind      = "ServiceAccount"
-    name      = "default"
-    namespace = "default"
-  }
-}
 
 
 # We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
