@@ -43,8 +43,10 @@ stages:
               downloadPath: '$(System.ArtifactsDirectory)'
           - task: KubernetesManifest@1
             inputs:
-              action: 'delete'
+              action: 'deploy'
               connectionType: 'kubernetesServiceConnection'
               kubernetesServiceConnection: 'AWS_kubernetes_connection'
               namespace: 'default'
+              manifests: '$(System.ArtifactsDirectory)/deployment.yml'
+              containers: 'in28min'
           
