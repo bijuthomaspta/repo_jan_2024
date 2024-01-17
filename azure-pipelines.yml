@@ -5,25 +5,25 @@ trigger:
 pool:
   VmImage: 'ubuntu-latest'
 stages:
-  - stage: Dev
-    jobs:
-      - job: Creating_AWS_EKS
-        steps:
-          - task: TerraformTaskV4@4
-            inputs:
-              provider: 'aws'
-              command: 'init'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
-              backendServiceAWS: 'AWS'
-              backendAWSBucketName: 'terraform-backend-state-on-08-01-2023'
-              backendAWSKey: 'eks-backend-state.tfstate'
+  # - stage: Dev
+  #   jobs:
+  #     - job: Creating_AWS_EKS
+  #       steps:
+  #         - task: TerraformTaskV4@4
+  #           inputs:
+  #             provider: 'aws'
+  #             command: 'init'
+  #             workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
+  #             backendServiceAWS: 'AWS'
+  #             backendAWSBucketName: 'terraform-backend-state-on-08-01-2023'
+  #             backendAWSKey: 'eks-backend-state.tfstate'
           
-          - task: TerraformTaskV4@4
-            inputs:
-              provider: 'aws'
-              command: 'apply'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
-              environmentServiceNameAWS: 'AWS'
+  #         - task: TerraformTaskV4@4
+  #           inputs:
+  #             provider: 'aws'
+  #             command: 'apply'
+  #             workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
+  #             environmentServiceNameAWS: 'AWS'
   - stage: Deploying_java_app_to_kubernetes
     jobs:
       - job: Publishing_Artifacts_files
