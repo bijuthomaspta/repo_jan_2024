@@ -89,7 +89,7 @@ resource "kubernetes_cluster_role_binding" "example" {
     name = "cluster-rolebinding-for-default"
   }
   role_ref {
-    api_group = ""
+    api_group = ["*"]
     kind      = "ClusterRole"
     name      = "cluster-role-for-default"
   }
