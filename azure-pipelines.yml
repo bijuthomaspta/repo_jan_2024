@@ -5,57 +5,57 @@ trigger:
 pool:
   VmImage: 'ubuntu-latest'
 stages:
-  # - stage: Dev
-  #   jobs:
-  #     - job: Creating_AWS_EKS
-  #       steps:
-  #         - task: TerraformTaskV4@4
-  #           inputs:
-  #             provider: 'aws'
-  #             command: 'init'
-  #             workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
-  #             backendServiceAWS: 'AWS'
-  #             backendAWSBucketName: 'terraform-backend-state-on-08-01-2023'
-  #             backendAWSKey: 'eks-backend-state.tfstate'
-          
-  #         - task: TerraformTaskV4@4
-  #           inputs:
-  #             provider: 'aws'
-  #             command: 'apply'
-  #             workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
-  #             environmentServiceNameAWS: 'AWS'
-  - stage: Deploying_java_app_to_kubernetes
+  - stage: Dev
     jobs:
-      - job: Publishing_Artifacts_files
+      - job: Creating_AWS_EKS
         steps:
-          - task: CopyPublishBuildArtifacts@1
+          - task: TerraformTaskV4@4
             inputs:
-                CopyRoot: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/kubernetes/'
-                Contents: '**'
-                ArtifactName: 'Kubernetes_deployment_cofiguration_files'
-                ArtifactType: 'Container'
+              provider: 'aws'
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
+              backendServiceAWS: 'AWS'
+              backendAWSBucketName: 'terraform-backend-state-on-08-01-2023'
+              backendAWSKey: 'eks-backend-state.tfstate'
+          
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'aws'
+              command: 'destroy'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
+              environmentServiceNameAWS: 'AWS'
+  # - stage: Deploying_java_app_to_kubernetes
+  #   jobs:
+  #     - job: Publishing_Artifacts_files
+  #       steps:
+  #         - task: CopyPublishBuildArtifacts@1
+  #           inputs:
+  #               CopyRoot: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/kubernetes/'
+  #               Contents: '**'
+  #               ArtifactName: 'Kubernetes_deployment_cofiguration_files'
+  #               ArtifactType: 'Container'
          
-          - task: DownloadBuildArtifacts@1
-            inputs:
-              buildType: 'current'
-              downloadType: 'single'
-              artifactName: 'Kubernetes_deployment_cofiguration_files'
-              downloadPath: '$(System.ArtifactsDirectory)'
-          - task: KubernetesManifest@1
-            inputs:
-              action: 'deploy'
-              connectionType: 'kubernetesServiceConnection'
-              kubernetesServiceConnection: 'AWS_kubernetes_connection'
-              namespace: 'default'
-              manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
-              containers: 'in28min'
-          - task: Kubernetes@1
-            inputs:
-              connectionType: 'Kubernetes Service Connection'
-              kubernetesServiceEndpoint: 'AWS_kubernetes_connection'
-              namespace: 'default'
-              command: 'delete'
-              arguments: 'deployment currency-exchange'
-              secretType: 'dockerRegistry'
-              containerRegistryType: 'Azure Container Registry'
+  #         - task: DownloadBuildArtifacts@1
+  #           inputs:
+  #             buildType: 'current'
+  #             downloadType: 'single'
+  #             artifactName: 'Kubernetes_deployment_cofiguration_files'
+  #             downloadPath: '$(System.ArtifactsDirectory)'
+  #         - task: KubernetesManifest@1
+  #           inputs:
+  #             action: 'deploy'
+  #             connectionType: 'kubernetesServiceConnection'
+  #             kubernetesServiceConnection: 'AWS_kubernetes_connection'
+  #             namespace: 'default'
+  #             manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
+  #             containers: 'in28min'
+  #         - task: Kubernetes@1
+  #           inputs:
+  #             connectionType: 'Kubernetes Service Connection'
+  #             kubernetesServiceEndpoint: 'AWS_kubernetes_connection'
+  #             namespace: 'default'
+  #             command: 'delete'
+  #             arguments: 'deployment currency-exchange'
+  #             secretType: 'dockerRegistry'
+  #             containerRegistryType: 'Azure Container Registry'
           
