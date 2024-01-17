@@ -79,19 +79,39 @@ resource "kubernetes_cluster_role" "example" {
   }
 
   rule {
-    api_groups = ["apps"]
-    resources  = ["deployments"]
-    verbs      =  ["create", "delete", "get", "list", "watch", "update", "patch"]
+    apiGroups = ["apps"]
+    resources =  ["deployments"]
+    verbs = ["create", "delete", "get", "list", "watch", "update", "patch"]
+ }
+rule {
+  apiGroups =  [""]
+  resources = ["pods"]
+  verbs =  ["create","update", "delete", "get", "watch", "list"]
+}
+rule {
+  apiGroups =  [""]
+  resources = ["services", "endpoints"]
+  verbs = ["create","delete", "get", "list", "watch", "patch"]
+}
+rule {
+  apiGroups =  [""]
+  resources = ["secrets"]
+  verbs = ["create", "update", "delete", "get", "watch", "list"]
+}
+rule {
+  apiGroups = ["apps"]
+  resources = ["statefulsets","replicasets"]
+  verbs = ["watch","list","get"]
   }
 }
 resource "kubernetes_cluster_role_binding" "example" {
   metadata {
-    name = "terraform-example"
+    name = "terraform-example1"
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = "cluster-admin"
+    name      = "terraform-example"
   }
   subject {
     kind      = "User"
@@ -101,7 +121,7 @@ resource "kubernetes_cluster_role_binding" "example" {
   subject {
     kind      = "ServiceAccount"
     name      = "default"
-    namespace = "kube-system"
+    namespace = "default"
   }
   subject {
     kind      = "Group"
