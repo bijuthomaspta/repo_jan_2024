@@ -49,13 +49,4 @@ stages:
               namespace: 'default'
               manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
               containers: 'in28min'
-          - task: Kubernetes@1
-            inputs:
-              connectionType: 'Kubernetes Service Connection'
-              kubernetesServiceEndpoint: 'AWS_kubernetes_connection'
-              namespace: 'default'
-              command: 'delete'
-              arguments: 'deployment currency-exchange'
-              secretType: 'dockerRegistry'
-              containerRegistryType: 'Azure Container Registry'
           
