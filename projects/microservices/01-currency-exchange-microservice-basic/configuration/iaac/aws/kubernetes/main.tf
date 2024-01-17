@@ -79,27 +79,27 @@ resource "kubernetes_cluster_role" "example" {
   }
 
   rule {
-    apiGroups = ["apps"]
+    api_groups = ["apps"]
     resources =  ["deployments"]
     verbs = ["create", "delete", "get", "list", "watch", "update", "patch"]
  }
 rule {
-  apiGroups =  [""]
+  api_groups =  [""]
   resources = ["pods"]
   verbs =  ["create","update", "delete", "get", "watch", "list"]
 }
 rule {
-  apiGroups =  [""]
+  api_groups =  [""]
   resources = ["services", "endpoints"]
   verbs = ["create","delete", "get", "list", "watch", "patch"]
 }
 rule {
-  apiGroups =  [""]
+  api_groups =  [""]
   resources = ["secrets"]
   verbs = ["create", "update", "delete", "get", "watch", "list"]
 }
 rule {
-  apiGroups = ["apps"]
+  api_groups = ["apps"]
   resources = ["statefulsets","replicasets"]
   verbs = ["watch","list","get"]
   }
