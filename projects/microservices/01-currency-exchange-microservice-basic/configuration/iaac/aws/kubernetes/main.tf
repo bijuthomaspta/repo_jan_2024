@@ -73,6 +73,42 @@ resource "kubernetes_secret" "example" {
 
   type = "kubernetes.io/service-account-token"
 }
+resource "kubernetes_cluster_role" "example" {
+  metadata {
+    name = "terraform-example"
+  }
+
+  rule {
+    api_groups = ["apps"]
+    resources  = ["deployments"]
+    verbs      =  ["create", "delete", "get", "list", "watch", "update", "patch"]
+  }
+}
+resource "kubernetes_cluster_role_binding" "example" {
+  metadata {
+    name = "terraform-example"
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-admin"
+  }
+  subject {
+    kind      = "User"
+    name      = "admin"
+    api_group = "rbac.authorization.k8s.io"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = "default"
+    namespace = "kube-system"
+  }
+  subject {
+    kind      = "Group"
+    name      = "system:masters"
+    api_group = "rbac.authorization.k8s.io"
+  }
+}
 
 
 
