@@ -6,24 +6,8 @@ pipeline {
           docker { image 'node:16-alpine'}
             }
         steps {
-           sh 'node --version'
+           my_library()
         }
-     }
-     stage ( 'Front-end') {
-        agent {
-          docker { image 'maven:latest'}
-            }
-        steps {
-           sh 'mvn --version'
-        }
-     }
-     stage ( 'DB') {
-        agent {
-          docker { image 'mysql:latest'}
-            }
-        steps {
-           sh 'mysql -V'
-        }
-     }
   } 
+}
 }
