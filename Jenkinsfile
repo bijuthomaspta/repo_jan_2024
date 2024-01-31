@@ -1,4 +1,5 @@
-@Library ("my_library")pipeline {
+@Library ("my_library")
+pipeline {
    agent none
   stages {
      stage ( 'Back-end') {
