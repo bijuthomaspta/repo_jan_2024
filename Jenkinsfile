@@ -1,4 +1,4 @@
-@Library ("my_library")
+@Library ("my_library") _
 pipeline {
    agent none
   stages {
@@ -9,6 +9,6 @@ pipeline {
         steps {
            readme1()
         }
-  } 
-}
+    } 
+  }
 }
