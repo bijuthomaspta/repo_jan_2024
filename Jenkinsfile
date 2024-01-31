@@ -1,4 +1,4 @@
-pipeline {
+@Library ("my_library")pipeline {
    agent none
   stages {
      stage ( 'Back-end') {
@@ -6,7 +6,7 @@ pipeline {
           docker { image 'node:16-alpine'}
             }
         steps {
-           my_library()
+           readme1()
         }
   } 
 }
