@@ -21,7 +21,7 @@ stages:
           - task: TerraformTaskV4@4
             inputs:
               provider: 'aws'
-              command: 'apply'
+              command: 'destroy'
               workingDirectory: '$(System.DefaultWorkingDirectory)/projects/microservices/01-currency-exchange-microservice-basic/configuration/iaac/aws/kubernetes/'
               environmentServiceNameAWS: 'AWS'
   # - stage: Deploying_java_app_to_kubernetes
