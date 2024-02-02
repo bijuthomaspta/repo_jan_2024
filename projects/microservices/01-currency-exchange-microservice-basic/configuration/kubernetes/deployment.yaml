@@ -27,7 +27,7 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - name: liveness-port
-          containerPort: 5000
+          containerPort: 6000
         resources: #CHANGE
           requests:
             cpu: 100m
