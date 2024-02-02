@@ -23,11 +23,11 @@ spec:
     spec:
       containers:
       - name: currency-exchange
-        image: bijuthomaspta/hello-world-pythonjan2024.01:latest
+        image: bijuthomaspta/hello-world-java223:0.01.RELEASE
         imagePullPolicy: IfNotPresent
         ports:
         - name: liveness-port
-          containerPort: 6000
+          containerPort: 5000
         resources: #CHANGE
           requests:
             cpu: 100m
