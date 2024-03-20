@@ -23,7 +23,7 @@ pipeline {
               docker { image 'mysql:latest' }
           }
           steps {
-                sh 'mysql -V'
+                sh ' SHOW DATABASES; '
             }
         }
     }
