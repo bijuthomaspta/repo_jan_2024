@@ -1,3 +1,4 @@
+@Library ("mynewlb") _
 pipeline {
     agent none
         
@@ -7,7 +8,7 @@ pipeline {
               docker { image 'node:20.11.1-alpine3.19' }
           }
           steps {
-                sh 'node --version'
+                output()
             }
         }
         stage('Back-End') {
