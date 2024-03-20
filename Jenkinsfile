@@ -1,4 +1,4 @@
-pippeline {
+pipeline {
    agent {
       docker { image 'node:lts-alpine3.19' }
       stages {
