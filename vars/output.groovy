@@ -1,3 +1,3 @@
 def call() {
-  sh 'echo this is op from shared library'
+  sh 'echo this is output from shared library'
   }
