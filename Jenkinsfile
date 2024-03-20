@@ -1,11 +1,13 @@
-@Library ("my_library") _
-pipeline {
-   agent any
-     stages {
-       stage ( 'Back-end') {
-          steps {
-             output()
-          }
-      } 
-    }
+pippeline {
+   agent {
+      docker { image 'node:lts-alpine3.19' }
+      stages {
+         stage ( ' Test ' ) {
+            steps {
+               sh 'node --version'
+            }
+         }
+      }
+   }
 }
+
